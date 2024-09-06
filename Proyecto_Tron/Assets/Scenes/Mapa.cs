@@ -7,16 +7,20 @@ public class Mapa : MonoBehaviour
     public int filas = 1000;
     public int columnas = 1000;
     public GameObject Muro;
+    public GameObject Moto;
     public int cantidadInicialPool = 1000;
     private Queue<GameObject> muroPool = new Queue<GameObject>();
-    private int[,] grid;
+    public int[,] grid;
+    private GameObject moto;
 
     void Start()
     {
         InicializarPool();
         GenerarMatriz();
         GenerarMapa();
+        CrearMoto();
     }
+    
 
     void InicializarPool()
     {
@@ -84,4 +88,55 @@ public class Mapa : MonoBehaviour
             }
         }
     }
+
+    void CrearMoto()
+    {
+        if (moto == null)
+        {
+            if (Moto != null) // Verifica que MotoPrefab no sea null
+            {
+                moto = Instantiate(Moto);
+                Vector2 posicion = new Vector2(filas / 2 - filas / 2, columnas / 2 - columnas / 2); // Posición inicial
+                moto.transform.position = posicion;
+                grid[filas / 2, columnas / 2] = 2; // Marca la posición de la moto en la matriz
+            }
+            else
+            {
+                Debug.LogError("El prefab Moto no ha sido asignado en el script Mapa.");
+            }
+        }
+    }
+
+
+    public void ActualizarPosicionMoto(Vector2 nuevaPosicion)
+    {
+        Vector2 antiguaPosicion = moto.transform.position;
+        Vector2 antiguaCelda = TransformarAIndice(antiguaPosicion);
+        Vector2 nuevaCelda = TransformarAIndice(nuevaPosicion);
+
+        int xAntigua = Mathf.RoundToInt(antiguaCelda.x);
+        int yAntigua = Mathf.RoundToInt(antiguaCelda.y);
+
+        if (xAntigua >= 0 && xAntigua < filas && yAntigua >= 0 && yAntigua < columnas)
+        {
+            grid[xAntigua, yAntigua] = 0; // Limpia la posición antigua
+        }
+
+        int xNueva = Mathf.RoundToInt(nuevaCelda.x);
+        int yNueva = Mathf.RoundToInt(nuevaCelda.y);
+
+        if (xNueva >= 0 && xNueva < filas && yNueva >= 0 && yNueva < columnas)
+        {
+            grid[xNueva, yNueva] = 2; // Marca la nueva posición
+            moto.transform.position = nuevaPosicion;
+        }
+    }
+
+    Vector2 TransformarAIndice(Vector2 posicion)
+    {
+        return new Vector2(Mathf.Round(posicion.x + filas / 2), Mathf.Round(posicion.y + columnas / 2));
+    }
+
+
+
 }

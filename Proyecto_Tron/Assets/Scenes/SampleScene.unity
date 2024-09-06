@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 557764416}
   m_Layer: 0
   m_Name: Moto
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 557764413}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.72, y: -13.69, z: 0}
+  m_LocalPosition: {x: 27.8, y: -32.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -356,6 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caec81542b24934489284a589fa4ad95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tiempoEntreMovimientos: 0.2
+  direccion: {x: 1, y: 0}
+  mapa: {fileID: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,6 +473,7 @@ MonoBehaviour:
   filas: 20
   columnas: 30
   Muro: {fileID: 2118326462}
+  Moto: {fileID: 557764413}
   cantidadInicialPool: 1000
 --- !u!4 &1074848486
 Transform:
