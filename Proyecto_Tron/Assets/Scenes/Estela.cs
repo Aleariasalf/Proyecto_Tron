@@ -18,21 +18,20 @@ public class Estela
     {
         Nodo nuevoNodo = new Nodo(nuevaPosicion);
 
-        // Si la estela está vacía, añadimos el primer nodo
         if (cabeza == null)
         {
             cabeza = nuevoNodo;
         }
         else
         {
-            // Agregamos el nuevo nodo al principio
+            
             nuevoNodo.siguiente = cabeza;
             cabeza = nuevoNodo;
         }
 
         longitudActual++;
 
-        // Si la longitud actual excede el largo de la estela, eliminamos el último nodo
+        
         if (longitudActual > largoEstela)
         {
             EliminarUltimoNodo();
@@ -45,7 +44,7 @@ public class Estela
 
         if (cabeza.siguiente == null)
         {
-            cabeza = null; // Solo había un nodo
+            cabeza = null; 
         }
         else
         {
@@ -54,7 +53,7 @@ public class Estela
             {
                 actual = actual.siguiente;
             }
-            actual.siguiente = null; // Eliminamos el último nodo
+            actual.siguiente = null; 
         }
 
         longitudActual--;
@@ -72,6 +71,6 @@ public class Estela
         }
 
         lineRenderer.positionCount = posiciones.Count;
-        lineRenderer.SetPositions(posiciones.ToArray()); // Actualizamos la línea del LineRenderer
+        lineRenderer.SetPositions(posiciones.ToArray()); // Actualiza la línea del LineRenderer
     }
 }

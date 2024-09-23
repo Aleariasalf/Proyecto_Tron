@@ -11,7 +11,7 @@ public class Moto : MonoBehaviour
     public Mapa mapa;
     private Vector2 celdaActual;
     protected float tiempoDesdeUltimoMovimiento = 0f;
-    public LineRenderer lineRenderer; // Asigna esto en el inspector
+    public LineRenderer lineRenderer; 
     private Estela estela;
 
     protected virtual void Start()
@@ -25,7 +25,14 @@ public class Moto : MonoBehaviour
         celdaActual = TransformarAIndice(transform.position);
         tiempoDesdeUltimoMovimiento = Time.time;
     }
-
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemigo")) 
+        {
+            Destroy(gameObject); // Destruye la moto del jugador
+            Debug.Log("Moto del jugador destruida por colisión.");
+        }
+    }
     protected virtual void Update()
     {
         if (lineRenderer != null)
@@ -105,7 +112,7 @@ public class Moto : MonoBehaviour
         if (x < 0 || x >= mapa.filas || y < 0 || y >= mapa.columnas)
             return false;
 
-        // Verificar que no haya un muro en la nueva posición (suponiendo que los muros están representados por 1)
+        
         return mapa.grid[x, y] == 0; // Solo permitir movimiento a espacios vacíos
     }
 

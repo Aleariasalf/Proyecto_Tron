@@ -8,7 +8,7 @@ public class Mapa : MonoBehaviour
     public int columnas = 1000;
     public GameObject Muro;
     public GameObject Moto;
-    public GameObject MotoEnemigaPrefab;  // Prefab de la Moto Enemiga
+    public GameObject MotoEnemigaPrefab;  
     public int cantidadInicialPool = 1000;
     public int cantidadEnemigos = 4;  // Cantidad de enemigos
     private Queue<GameObject> muroPool = new Queue<GameObject>();

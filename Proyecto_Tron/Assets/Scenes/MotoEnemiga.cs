@@ -9,6 +9,16 @@ public class MotoEnemiga : Moto
     private int movimientosRestantes = 0;
     private Vector2 direccionActual;
 
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player")) 
+        {
+            // Destruir la moto enemiga
+            Destroy(gameObject);
+            Debug.Log("Moto enemiga destruida por colisión.");
+        }
+    }
     protected override void Update()
     {
         tiempoDesdeUltimoMovimiento += Time.deltaTime;
