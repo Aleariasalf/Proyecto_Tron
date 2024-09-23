@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Moto : MonoBehaviour
 {
-    public float tiempoEntreMovimientos = 0.2f; // Tiempo entre movimientos
+    protected float tiempoEntreMovimientos = 0.5f; // Tiempo entre movimientos
     public float velocidad = 5f;
+    protected Vector2 ultimaPosicion; // Última posición de la moto
     public Vector2 direccion = Vector2.right; // Dirección inicial
     public Mapa mapa;
     private Vector2 celdaActual;
-    private float tiempoDesdeUltimoMovimiento;
+    protected float tiempoDesdeUltimoMovimiento = 0f;
 
     void Start()
     {
@@ -53,6 +54,7 @@ public class Moto : MonoBehaviour
         }
     }
 
+
     void MoverMoto()
     {
         Vector2 nuevaCelda = celdaActual + direccion;
@@ -82,4 +84,19 @@ public class Moto : MonoBehaviour
         int y = Mathf.RoundToInt(celda.y);
         return x >= 0 && x < mapa.filas && y >= 0 && y < mapa.columnas && mapa.grid[x, y] == 0;
     }
+
+    protected bool EsPosicionValida(Vector2 posicion)
+    {
+        int x = (int)(posicion.x + (mapa.filas / 2));
+        int y = (int)(posicion.y + (mapa.columnas / 2));
+
+        // Verificar que esté dentro de los límites de la matriz
+        if (x < 0 || x >= mapa.filas || y < 0 || y >= mapa.columnas)
+            return false;
+
+        // Verificar que no haya un muro en la nueva posición (suponiendo que los muros están representados por 1)
+        return mapa.grid[x, y] == 0; // Solo permitir movimiento a espacios vacíos
+    }
+
+
 }
