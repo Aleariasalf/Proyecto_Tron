@@ -8,7 +8,9 @@ public class Mapa : MonoBehaviour
     public int columnas = 1000;
     public GameObject Muro;
     public GameObject Moto;
+    public GameObject MotoEnemigaPrefab;  // Prefab de la Moto Enemiga
     public int cantidadInicialPool = 1000;
+    public int cantidadEnemigos = 4;  // Cantidad de enemigos
     private Queue<GameObject> muroPool = new Queue<GameObject>();
     public int[,] grid;
     private GameObject moto;
@@ -19,6 +21,48 @@ public class Mapa : MonoBehaviour
         GenerarMatriz();
         GenerarMapa();
         CrearMoto();
+        CrearEnemigos();  // Llamamos al método para crear enemigos
+    }
+
+    // Método para generar enemigos en posiciones aleatorias
+    void CrearEnemigos()
+    {
+        for (int i = 0; i < cantidadEnemigos; i++)
+        {
+            Vector2 posicionAleatoria = ObtenerPosicionAleatoria();
+
+            if (MotoEnemigaPrefab != null) // Verificamos que el prefab esté asignado
+            {
+                GameObject enemigo = Instantiate(MotoEnemigaPrefab);
+                enemigo.transform.position = posicionAleatoria;
+
+                // Marcamos la posición en la matriz
+                Vector2 celdaEnemiga = TransformarAIndice(posicionAleatoria);
+                int x = Mathf.RoundToInt(celdaEnemiga.x);
+                int y = Mathf.RoundToInt(celdaEnemiga.y);
+                if (x >= 0 && x < filas && y >= 0 && y < columnas)
+                {
+                    grid[x, y] = 3;  // Usamos el valor 3 para marcar la posición del enemigo
+                }
+            }
+            else
+            {
+                Debug.LogError("El prefab MotoEnemiga no ha sido asignado en el script Mapa.");
+            }
+        }
+    }
+
+    // Método para obtener una posición aleatoria en la matriz
+    Vector2 ObtenerPosicionAleatoria()
+    {
+        int x, y;
+        do
+        {
+            x = Random.Range(1, filas - 1);  // Evitamos las paredes
+            y = Random.Range(1, columnas - 1);
+        } while (grid[x, y] != 0);  // Aseguramos que la celda esté vacía (valor 0)
+
+        return new Vector2(x - filas / 2, y - columnas / 2);  // Convertimos a coordenadas del mundo
     }
     public void ActualizarPosicionMotoEnemiga(Vector2 nuevaPosicion, int valor = 2)
     {

@@ -11,9 +11,12 @@ public class Moto : MonoBehaviour
     public Mapa mapa;
     private Vector2 celdaActual;
     protected float tiempoDesdeUltimoMovimiento = 0f;
+    public LineRenderer lineRenderer; // Asigna esto en el inspector
+    private Estela estela;
 
-    void Start()
+    protected virtual void Start()
     {
+        estela = new Estela(5);
         mapa = FindObjectOfType<Mapa>();
         if (mapa == null)
         {
@@ -25,6 +28,10 @@ public class Moto : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (lineRenderer != null)
+        {
+            estela.DibujarEstela(lineRenderer);
+        }
         if (mapa != null)
         {
             // Actualizar dirección basada en la entrada del teclado
@@ -60,8 +67,12 @@ public class Moto : MonoBehaviour
         Vector2 nuevaCelda = celdaActual + direccion;
         if (EsCeldaValida(nuevaCelda))
         {
+            // Actualiza la posición de la moto
             mapa.ActualizarPosicionMoto(TransformarAPosicion(nuevaCelda));
             celdaActual = nuevaCelda;
+
+            // Agrega la posición actual a la estela después de mover
+            estela.AgregarPosicion(TransformarAPosicion(celdaActual));
         }
     }
 
