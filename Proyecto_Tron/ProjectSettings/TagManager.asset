@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Limite
+  - Estela
+  - Enemigo
   layers:
   - Default
   - TransparentFX

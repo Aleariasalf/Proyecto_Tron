@@ -20,7 +20,20 @@ public class Mapa : MonoBehaviour
         GenerarMapa();
         CrearMoto();
     }
-    
+    public void ActualizarPosicionMotoEnemiga(Vector2 nuevaPosicion, int valor = 2)
+    {
+        // Convertir la nueva posición a índices de la matriz
+        int x = (int)(nuevaPosicion.x + (filas / 2));
+        int y = (int)(nuevaPosicion.y + (columnas / 2));
+
+        // Asegurarse de que los índices estén dentro del rango de la matriz
+        if (x >= 0 && x < filas && y >= 0 && y < columnas)
+        {
+            // Actualizar la matriz con el valor correspondiente
+            grid[x, y] = valor;
+        }
+    }
+
 
     void InicializarPool()
     {

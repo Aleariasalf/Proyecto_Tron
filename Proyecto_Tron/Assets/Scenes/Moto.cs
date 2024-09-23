@@ -5,6 +5,7 @@ using UnityEngine;
 public class Moto : MonoBehaviour
 {
     public float tiempoEntreMovimientos = 0.2f; // Tiempo entre movimientos
+    public float velocidad = 5f;
     public Vector2 direccion = Vector2.right; // Dirección inicial
     public Mapa mapa;
     private Vector2 celdaActual;
@@ -21,7 +22,7 @@ public class Moto : MonoBehaviour
         tiempoDesdeUltimoMovimiento = Time.time;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         if (mapa != null)
         {
@@ -61,6 +62,7 @@ public class Moto : MonoBehaviour
             celdaActual = nuevaCelda;
         }
     }
+
 
     Vector2 TransformarAIndice(Vector2 posicion)
     {
