@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 528a730823a33584f806beda23f5d2b6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Muro: {fileID: 7009940689145307827, guid: 649a55eb956e7b24d9495ad8890d96dc, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
